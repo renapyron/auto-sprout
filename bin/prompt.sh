@@ -8,3 +8,5 @@ while true; do
     read -p "Hours w/ 15 min. granularity only." u;
     exit;
 done
+
+aws lambda invoke --function-name aws-node-scheduled-cron-project-dev-cronHandler --payload "{ \"hours\": $wh }" response.json --profile warren

@@ -1,0 +1,17 @@
+service: aws-node-scheduled-cron-project
+
+frameworkVersion: '2'
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+functions:
+  rateHandler:
+    handler: handler.run
+  cronHandler:
+    handler: handler.run
+    events:
+      - schedule: cron(0 0 1 1 ? 2020)  # Intentionally placing an unreachable schedule here as lambda will update the rule for logout
