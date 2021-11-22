@@ -2,6 +2,8 @@ service: aws-node-scheduled-cron-project
 
 frameworkVersion: '2'
 
+plugins:
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
@@ -14,4 +16,5 @@ functions:
   cronHandler:
     handler: handler.run
     events:
+      - name: ${env:LOGOUT_EVT_NAME}
       - schedule: cron(0 0 1 1 ? 2020)  # Intentionally placing an unreachable schedule here as lambda will update the rule for logout

@@ -143,3 +143,5 @@ After invocation, you should see output similar to:
 ```bash
 Your cron function "aws-node-scheduled-cron-dev-rateHandler" ran at Fri Mar 05 2021 15:14:39 GMT+0100 (Central European Standard Time)
 ```
+
+ref? https://aws.amazon.com/blogs/compute/integrating-amazon-eventbridge-into-your-serverless-applications/
