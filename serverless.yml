@@ -2,19 +2,34 @@ service: aws-node-scheduled-cron-project
 
 frameworkVersion: '2'
 
-plugins:
-  - serverless-dotenv-plugin
+# Uncomment if you want to use Serverless' built-in dotenv feature instead Note:
+# Serverless will load all env vars in `.env` in 3.0.0+
+# https://www.serverless.com/framework/docs/environment-variables/
+# useDotenv: true
+variablesResolutionMode: 20210219
+configValidationMode: error
+# Do this if you only want to load env vars into the Serverless environment
+# This will make env vars available here and in any Serverless plugins
+custom:
+  dotenvVars: ${file(config.js)}
+
+  
 
 provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
-
+  environment:
+    LOGOUT_EVT_NAME: ${self:custom.dotenvVars.LOGOUT_EVT_NAME}
 functions:
   rateHandler:
     handler: handler.run
   cronHandler:
     handler: handler.run
     events:
-      - name: ${env:LOGOUT_EVT_NAME}
-      - schedule: cron(0 0 1 1 ? 2020)  # Intentionally placing an unreachable schedule here as lambda will update the rule for logout
+      - schedule:
+          # careful double indent here
+          name: ${self:custom.dotenvVars.LOGOUT_EVT_NAME}
+          description: 'Some desc'
+          rate: cron(0 0 1 1 ? 2020)
+          enabled: true

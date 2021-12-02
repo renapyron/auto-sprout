@@ -1,11 +1,12 @@
 'use strict';
 
-const { CloudWatchEvents } = require('aws-sdk')
+const { CloudWatchEvents } = require('aws-sdk');
 
 module.exports.run = async (event, context) => {
   const { LOGOUT_EVT_NAME } = process.env;
   const time = new Date();
   const payload = event;
+  const cloudWatchEvents = new CloudWatchEvents();
 
 
   // getHours() 0-23
@@ -29,12 +30,15 @@ module.exports.run = async (event, context) => {
     throw new Error('hours payload not found.');
   }
 
-  CloudWatchEvents.putRule(
+  console.info('put', process.env);
+  const updatedRule = await cloudWatchEvents.putRule(
     {
       Name: LOGOUT_EVT_NAME,
       ScheduleExpression: logoutScheduleExpr,
     }
-  );
+  ).promise();
+
+  console.info('put', updatedRule);
 
 
   console.log(`Your cron function "${context.functionName}" ran at ${time}. Hours before auto logout: ${payload.hours}`);
