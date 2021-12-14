@@ -1,5 +1,4 @@
 'use strict';
-
 const { CloudWatchEvents } = require('aws-sdk');
 
 module.exports.run = async (event, context) => {

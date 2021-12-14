@@ -22,10 +22,9 @@ provider:
   environment:
     LOGOUT_EVT_NAME: ${self:custom.dotenvVars.LOGOUT_EVT_NAME}
 functions:
-  rateHandler:
-    handler: handler.run
   cronHandler:
     handler: handler.run
+    role: myCustomRole
     events:
       - schedule:
           # careful double indent here
@@ -33,3 +32,42 @@ functions:
           description: 'Some desc'
           rate: cron(0 0 1 1 ? 2020)
           enabled: true
+
+resources:
+  Resources:
+    myCustomRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: MyCustomRole
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              #double indent??
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: myPolicyName
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource:
+                    - 'Fn::Join':
+                      # careful indents
+                      - ':'
+                      -
+                        - 'arn:aws:logs'
+                        - Ref: 'AWS::Region'
+                        - Ref: 'AWS::AccountId'
+                        - 'log-group:/aws/lambda/*:*:*'
+                # - Effect: Allow
+                #   Action:
+                #     - events:PutRule
+                #   Resource: "*"
