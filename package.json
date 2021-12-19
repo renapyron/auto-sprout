@@ -11,6 +11,8 @@
   "devDependencies": {},
   "dependencies": {
     "aws-sdk": "^2.1033.0",
-    "dotenv": "^10.0.0"
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
+    "form-data": "^4.0.0"
   }
 }

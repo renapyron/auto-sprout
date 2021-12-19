@@ -7,29 +7,42 @@ module.exports.run = async (event, context) => {
   const payload = event;
   const cloudWatchEvents = new CloudWatchEvents();
 
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  if (!payload.hours) {
+    throw new Error('hours payload not found.');
+  }
+  const hoursInputNum = Number(payload.hours);
+
+  /*
+  if (hoursInputNum > 10.5) {
+    throw new Error('hours cannot exceed 10.5.');
+  } */
+
 
   // getHours() 0-23
-  let logoutHourOfDay = time.getHours() + Math.floor(Number(payload.hours));
+  console.info('payload', payload);
+  let logoutHourOfDay = time.getHours() + Math.floor(hoursInputNum);
   const logoutNextDay = logoutHourOfDay > 23;
+  let logoutDateTime = time;
   if (logoutNextDay) {
     logoutHourOfDay = logoutHourOfDay % 23;
+    logoutDateTime = tomorrow;
   }
 
-
-  // random + 1 - 30 mins.
+  // random + 1 - 30 mins., cannot exceed 59 mins.
   const logoutMinsOfDay = Math.min(
     59,
     time.getMinutes() + Math.floor(Math.random() * (30 - 1) + 1)
   );
 
   const logoutScheduleExpr =
-    `cron(0 ${logoutMinsOfDay} ${logoutHourOfDay} ${time.getDate()} ${time.getMonth() + 1} ? ${time.getFullYear()})`;
+    `cron(${logoutMinsOfDay} ${logoutHourOfDay} ${logoutDateTime.getDate()} ${logoutDateTime.getMonth() + 1} ? ${logoutDateTime.getFullYear()})`;
 
-  if (!payload.hours) {
-    throw new Error('hours payload not found.');
-  }
+  console.info('process.env', process.env);
+  console.info('logoutScheduleExpr', logoutScheduleExpr);
 
-  console.info('put', process.env);
   const updatedRule = await cloudWatchEvents.putRule(
     {
       Name: LOGOUT_EVT_NAME,

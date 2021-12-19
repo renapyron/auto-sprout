@@ -67,7 +67,7 @@ resources:
                         - Ref: 'AWS::Region'
                         - Ref: 'AWS::AccountId'
                         - 'log-group:/aws/lambda/*:*:*'
-                # - Effect: Allow
-                #   Action:
-                #     - events:PutRule
-                #   Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - events:PutRule
+                  Resource: "*"
