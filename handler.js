@@ -53,15 +53,14 @@ module.exports.run = async (event, context) => {
     }
   ).promise();
 
-  console.info('put', updatedRule);
+  console.log('put', updatedRule);
 
 
-  console.log(`Your cron function "${context.functionName}" ran at ${time}. Hours before auto logout: ${payload.hours}`);
+  console.info(`Your cron function "${context.functionName}" ran at ${time}. Hours before auto logout: ${payload.hours}`);
 
-  // TODO temporary
-  console.log('typeof lout', sproutLib.logout);
-  loginResult = await sproutLib.logout();
-  console.log('logout result:', loginResult.status, loginResult.data);
+
+  loginResult = await sproutLib.login();
+  console.info('sprout login result:', loginResult.status, loginResult.data);
 
 
 };
