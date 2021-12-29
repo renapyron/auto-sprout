@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sprout</title>
+
+    <link type="image/x-icon" rel="shortcut icon" href="/images/People.ico" />
+
+    
+    
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" />
+<meta name="x-stylesheet-fallback-test" content="" class="sr-only" /><script>!function(a,b,c,d){var e,f=document,g=f.getElementsByTagName("SCRIPT"),h=g[g.length-1].previousElementSibling,i=f.defaultView&&f.defaultView.getComputedStyle?f.defaultView.getComputedStyle(h):h.currentStyle;if(i&&i[a]!==b)for(e=0;e<c.length;e++)f.write('<link href="'+c[e]+'" '+d+"/>")}("position","absolute",["/lib/bootstrap/dist/css/bootstrap.min.css"], "rel=\u0022stylesheet\u0022 ");</script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.rawgit.com/louisdalligos/561b661eba4c4948e6ef770ff2763ff6/raw/f61aacb2b159f10439b9a9a792a60f854aafe9c7/sprout-site-css.min.css" />
+    
+</head>
+<body>
+    <!--  <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Sprout.Services.HR.WebBundy</a>
+              </div>
+              <div class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                      <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                      <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                      <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                  </ul>
+              </div>
+          </div>
+      </nav>-->
+
+
+    <div class="wrapper">
+        
+
+
+<div class="center-panel text-center">
+    <img src="./images/Sprout-Logo-Black.png" class="logo logo2" alt="">
+    <div class="content">
+
+
+        <a class="btn-back" href="/">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            &nbsp;
+            Go Back
+        </a>
+        <h1 id="Manila">
+            Hello!
+        </h1>
+        <p class="p-2" id="dateNow">
+
+        </p>
+
+        <form method="POST" data-ajax="true" data-ajax-success="onSuccess" data-ajax-begin="onBegin" data-ajax-failure="onFailed" action="/WebBundy/ClockIn">
+            <div class="form-group">
+                <!-- <label asp-for="Username" class="col-md-2 control-label"></label>-->
+                <div class="col-md-12 form-margin-bottom-1">
+                    <input disabled="disabled" class="form-control-custom disabled-control" placeholder="Username" type="text" data-val="true" data-val-length="Must be between 3 and 16 characters" data-val-length-max="50" data-val-length-min="1" data-val-required="The Username field is required." id="Username" maxlength="50" name="Username" value="" />
+                    <span class="text-danger pull-left field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <!-- <label asp-for="Password" class="col-md-2 control-label"></label>-->
+                <div class="col-md-12  form-margin-bottom-2">
+                    <input disabled="disabled" class="form-control-custom disabled-control" type="password" placeholder="Password" data-val="true" data-val-length="Must be between 1 and 50 characters" data-val-length-max="50" data-val-length-min="1" data-val-required="The Password field is required." id="Password" maxlength="50" name="Password" />
+                    <span class="text-danger pull-left field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-md-12">
+                    <button disabled="disabled" type="submit" name="typeClock" value="ClockIn" class="btn-blue-50 pull-left disabled-control" id="showCount">
+                        <span class="glyphicon glyphicon-log-in" style="margin-right: 10px;"></span> Clock In
+                    </button>
+                    <button disabled="disabled" type="submit" name="typeClock" value="ClockOut" class="btn-orange-50 pull-right disabled-control">
+                        <span class="glyphicon glyphicon-log-out" style="margin-right: 10px;"></span> Clock Out
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" id="borderTopSuccess">
+                        <!--<div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">Success</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span>&times;</span>
+                            </button>
+                        </div>-->
+                        <div class="modal-body text-left">
+                            <div class="UserName" id="UserName">
+                                <span id="greetingsSpan">Hi</span>, <span id="nameSpan">Joe Hisaishi</span>!
+                            </div>
+                            <div class="description">
+                                <span id="successModalContent"></span>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+
+                            <a id="buttonOkay" class="btn btn-teal" href="/">
+
+                                Okay
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Error Modal -->
+            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="border-top: 6px solid red;">
+                        <!-- <div class="modal-header">
+                            <h5 class="modal-title" id="errorModalLabel">Success</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span>&times;</span>
+                            </button>
+                        </div>-->
+                        <div id="errorModalContent" class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-teal" data-dismiss="modal">
+                                Okay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8NOIMml3I3hLiK7IsYYY9KGvXxjqquctUWBqjJ4dovMN8Lrg-MN--TTwBEyZwHWPLA6gZUzQNs1xfcTAeNvfBBzrnujegF8La_Ppkci-3s4_GR8YeNnxX2FUwQJenqKIV2DtG4jI2bUGqSgx1eIVh8s" /></form>
+
+    </div>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.4.1/moment-timezone-with-data.min.js"></script>
+
+
+<script>
+    $(document).ready(function (e) {
+        $(".disabled-control").removeAttr('disabled');
+    });
+    // Total seconds to wait
+    var seconds = 6;
+
+    function countdown() {
+        seconds = seconds - 1;
+        if (seconds < 0) {
+            // Chnage your redirection link here
+
+        } else {
+            // Update remaining seconds
+            document.getElementById("countdown").innerHTML = seconds;
+            // Count down using javascript
+            window.setTimeout("countdown()", 1000);
+        }
+    }
+
+    // Run countdown function
+
+
+</script>
+<script>
+    var objToday = new Date(),
+        weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
+        dayOfWeek = weekday[objToday.getDay()],
+        domEnder = function () { var a = objToday; if (/1/.test(parseInt((a + "").charAt(0)))) return "th"; a = parseInt((a + "").charAt(1)); return 1 == a ? "st" : 2 == a ? "nd" : 3 == a ? "rd" : "th" }(),
+        dayOfMonth = today + (objToday.getDate() < 10) ? '0' + objToday.getDate() + domEnder : objToday.getDate(),
+        months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'),
+        curMonth = months[objToday.getMonth()],
+        curYear = objToday.getFullYear(),
+        curHour = objToday.getHours() > 12 ? objToday.getHours() - 12 : (objToday.getHours() < 10 ? "0" + objToday.getHours() : objToday.getHours()),
+        curMinute = objToday.getMinutes() < 10 ? "0" + objToday.getMinutes() : objToday.getMinutes(),
+        curSeconds = objToday.getSeconds() < 10 ? "0" + objToday.getSeconds() : objToday.getSeconds(),
+        curMeridiem = objToday.getHours() > 12 ? "PM" : "AM";
+    var today = "Today is" + " " + dayOfWeek + ", " + curMonth + " " + dayOfMonth + ", " + curYear;
+
+    document.getElementsByTagName('p')[0].textContent = today;
+
+</script>
+<script>
+
+
+
+    var onSuccess = function (context) {
+
+     
+
+        if (context.greetings === "Bye") {
+            $('#borderTopSuccess').addClass("modal-title-orange");
+            $('#buttonOkay').addClass("btn-orange");
+            $('#buttonOkay').removeClass("btn-teal");
+
+            $('#UserName').addClass("greetings-orange");
+            $('#UserName').removeClass("greetings-teal");
+
+
+        }
+        if (context.greetings === "Hi") {
+            $('#borderTopSuccess').addClass("modal-title-success");
+
+
+            $('#UserName').addClass("greetings-teal");
+            $('#UserName').removeClass("greetings-orange");
+            $('#buttonOkay').addClass("" +
+                "btn-teal" +
+                "");
+            $('#buttonOkay').removeClass("btn-orange");
+        }
+        if (context.isSuccess === true) {
+            $('#successModalContent').html(context.message);
+
+            $('#successModal').modal('show');
+
+            $('#Username').val('');
+            $('#Password').val('');
+
+            $('#greetingsSpan').html(context.greetings);
+            $('#nameSpan').html(context.fullname);
+
+            setTimeout(function () { window.location.href = '/' }, 5000);
+
+
+        } else {
+            //fix on empty modal
+            var errorMsg = "";
+            if (context.message == null && context.type === "popupmodal")
+                errorMsg = "Something went wrong. Please try again.";                            
+            else
+                errorMsg = context.message;
+
+            $('#errorModalContent').html(errorMsg);
+            $('#errorModal').modal('show');
+            $('#Password').val('');
+
+
+        }
+
+        $.each(context.formErrors, function () {
+            $("[data-valmsg-for=" + this.key + "]").html(this.errors.join());
+
+        });
+
+        $('#loadingDiv').hide();
+
+        //alert(context.status);
+    };
+
+    var onFailed = function (context) {
+        $('#errorModalContent').html("An error occured during request -");
+        //$('#borderTopSuccess').addClass("modal-title-success");
+        $('#errorModal').modal('show');
+
+        $('#Password').val('');
+        $('#loadingDiv').hide();
+
+    };
+
+
+    var onBegin = function () {
+
+        $('#loadingDiv').show();
+    };
+
+
+    (function () {
+        // Set the locale to use for time formatting. Try other
+        // options like 'sv' or 'fi' or 'fr'. 'en' == english
+        moment.locale('en');
+
+        var deviceTime,
+            serverTime,
+            actualTime,
+            timeOffset;
+
+        // Run each second lap to show times in real time
+        var updateDisplay = function () {
+            // Show static time data
+
+            // Show dynamic time data
+            var displayFormat = 'LTS';
+            document.getElementById('Manila').innerHTML =
+                actualTime.tz('Asia/Manila').format(displayFormat);
+
+
+
+
+        };
+
+        var timerHandler = function () {
+            // Get current time on the device
+            actualTime = moment();
+
+            // Add the calculated offset
+            actualTime.add(timeOffset);
+
+            // Show our new results
+            updateDisplay();
+
+            // Re-run this next second wrap
+            setTimeout(timerHandler, (1000 - (new Date().getTime() % 1000)));
+        };
+
+        // Fetch the servern time through a HEAD request to current URL
+        // using asynchronous request.
+        var fetchServerTime = function () {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onload = function () {
+                var dateHeader = xmlhttp.getResponseHeader('Date');
+
+                // Just store the current time on device for display purpose
+                deviceTime = moment();
+
+                // Turn the "Date:" header field into a "moment" object,
+                // use JavaScript Date() object as parser
+                serverTime = moment(new Date(dateHeader)); // Read
+
+                // Store the differences between device time and server time
+                timeOffset = serverTime.diff(moment());
+
+                // Now when we've got all data, trigger the timer for the first time
+                timerHandler();
+            }
+            xmlhttp.open("HEAD", window.location.href);
+            xmlhttp.send();
+        }
+
+        // Trigger the whole procedure
+        fetchServerTime();
+    })();
+
+
+</script>
+
+
+
+
+
+
+    </div>
+    <div class="footer text-center">
+        <p>Copyright © 2018 Sprout HR, All Rights Reserved. </p>
+    </div>
+
+    <div id="loadingDiv">
+        <div class="loader"></div>
+    </div>
+    
+    
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js" crossorigin="anonymous" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+<script>(window.jQuery||document.write("\u003Cscript src=\u0022/lib/jquery/dist/jquery.min.js\u0022 crossorigin=\u0022anonymous\u0022 integrity=\u0022sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV\u002BrXbYlF2cqB8txI/8aZajjp4Bqd\u002BV6D5IgvKT\u0022\u003E\u003C/script\u003E"));</script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js" crossorigin="anonymous" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+<script>(window.jQuery && window.jQuery.fn && window.jQuery.fn.modal||document.write("\u003Cscript src=\u0022/lib/bootstrap/dist/js/bootstrap.min.js\u0022 crossorigin=\u0022anonymous\u0022 integrity=\u0022sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa\u0022\u003E\u003C/script\u003E"));</script>
+        <script src="/js/site.js?v=q5z7DzgFzMM59iRqal373R-EE3O5FkmSdFR_pL9e61E"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+    
+
+    
+</body>
+</html>

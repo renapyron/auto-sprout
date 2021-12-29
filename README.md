@@ -145,3 +145,9 @@ Your cron function "aws-node-scheduled-cron-dev-rateHandler" ran at Fri Mar 05 2
 ```
 
 ref? https://aws.amazon.com/blogs/compute/integrating-amazon-eventbridge-into-your-serverless-applications/
+
+### NEW!!! Deployment
+- Deploying specific lambda function to environment
+    ```sh
+      $ npm run deploy:function -- aws-node-scheduled-cron-project-dev-loginHandler
+    ```

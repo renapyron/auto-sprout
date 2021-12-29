@@ -9,4 +9,4 @@ while true; do
     read -p "Hours w/ 15 min. granularity only." u;
 done
 
-aws lambda invoke --function-name aws-node-scheduled-cron-project-dev-cronHandler --cli-binary-format raw-in-base64-out --payload '{ "hours": '"$wh"' }' response.json --profile warren
+aws lambda invoke --function-name aws-node-scheduled-cron-project-dev-loginHandler --cli-binary-format raw-in-base64-out --payload '{ "hours": '"$wh"' }' response.json --profile warren

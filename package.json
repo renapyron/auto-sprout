@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "deploy": "serverless deploy --aws-profile warren",
-    "cflint": "aws cloudformation validate-template  --template-body file://./cftest.yml --profile warren"
+    "cflint": "aws cloudformation validate-template  --template-body file://./cftest.yml --profile warren",
+    "deploy:function": "sls deploy function --aws-profile warren -f"
   },
   "devDependencies": {},
   "dependencies": {

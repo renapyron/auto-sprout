@@ -21,10 +21,15 @@ provider:
   lambdaHashingVersion: 20201221
   environment:
     LOGOUT_EVT_NAME: ${self:custom.dotenvVars.LOGOUT_EVT_NAME}
+    SPROUT_WEBBUNDY_URL: ${self:custom.dotenvVars.SPROUT_WEBBUNDY_URL}
+    USERNAME: ${self:custom.dotenvVars.USERNAME}
+    PASSWORD: ${self:custom.dotenvVars.PASSWORD}
 functions:
-  cronHandler:
+  loginHandler:
     handler: handler.run
     role: myCustomRole
+  logoutHandler:
+    handler: logout-handler.run
     events:
       - schedule:
           # careful double indent here
@@ -32,7 +37,6 @@ functions:
           description: 'Some desc'
           rate: cron(0 0 1 1 ? 2020)
           enabled: true
-
 resources:
   Resources:
     myCustomRole:
