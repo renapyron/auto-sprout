@@ -1,8 +1,9 @@
 'use strict';
 const { CloudWatchEvents } = require('aws-sdk');
-const { logout, getSproutToken } = require('./lib/sprout');
+const sproutLib = require('./lib/sprout');
 
 module.exports.run = async (event, context) => {
-  const { LOGOUT_EVT_NAME } = process.env;
-  console.log('*****logout proc*****');
+    console.info('Triggering logout handler at:', (new Date()).toUTCString());
+    const logoutResult = await sproutLib.logout();
+    console.info('logout result:', logoutResult.status, logoutResult.data);
 };

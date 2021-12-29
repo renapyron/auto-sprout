@@ -16,6 +16,7 @@ module.exports.run = async (event, context) => {
     throw new Error('hours payload not found.');
   }
   const hoursInputNum = Number(payload.hours);
+  const logoutTest = !!payload.logoutTest;
 
   
   if (hoursInputNum > 10.5) {
@@ -33,11 +34,12 @@ module.exports.run = async (event, context) => {
     logoutDateTime = tomorrow;
   }
 
-  // random + 1 - 30 mins., cannot exceed 59 mins.
-  const logoutMinsOfDay = Math.min(
-    59,
-    time.getMinutes() + Math.floor(Math.random() * (30 - 1) + 1)
-  );
+  // support logoutTest mode, immediately trigget logout after 1 min.
+  
+  const logoutMinsOfDay = logoutTest ?
+    time.getMinutes() + 2 :
+    // random + 1 - 30 mins., cannot exceed 59 mins.
+    Math.min(59, time.getMinutes() + Math.floor(Math.random() * (30 - 1) + 1));
 
   const logoutScheduleExpr =
     `cron(${logoutMinsOfDay} ${logoutHourOfDay} ${logoutDateTime.getDate()} ${logoutDateTime.getMonth() + 1} ? ${logoutDateTime.getFullYear()})`;

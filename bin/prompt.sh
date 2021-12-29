@@ -9,4 +9,10 @@ while true; do
     read -p "Hours w/ 15 min. granularity only." u;
 done
 
-aws lambda invoke --function-name aws-node-scheduled-cron-project-dev-loginHandler --cli-binary-format raw-in-base64-out --payload '{ "hours": '"$wh"' }' response.json --profile warren
+if [ $# -eq 1  ] && [ $1 = "--logoutTest"  ] ; then
+    echo "Executing logout test, logout will run immediately after 1 min. Press ctrl-c NOW if you want to abort!!! invoking function in 10 secs."
+    sleep 10s
+    aws lambda invoke --function-name aws-node-scheduled-cron-project-dev-loginHandler --cli-binary-format raw-in-base64-out --payload '{ "hours": "0", "logoutTest": true }' response.json --profile warren
+else
+    aws lambda invoke --function-name aws-node-scheduled-cron-project-dev-loginHandler --cli-binary-format raw-in-base64-out --payload '{ "hours": '"$wh"' }' response.json --profile warren
+fi
