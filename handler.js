@@ -61,6 +61,9 @@ module.exports.run = async (event, context) => {
 
   loginResult = await sproutLib.login();
   console.info('sprout login result:', loginResult.status, loginResult.data);
+  if (loginResult.data && loginResult.data.isSuccess !== true) {
+    throw new Error('Sprout login failure');
+  }
 
 
 };
